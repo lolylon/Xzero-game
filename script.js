@@ -34,7 +34,7 @@ function handleCellClick(e) {
   if (checkWin()) {
     scores[currentPlayer]++;
     alert(`Игрок ${currentPlayer} победил!`);
-    message.textContent = `Игрок ${currentPlayer} победил!`;  
+    message.textContent = `Игрок ${currentPlayer} победил!`;
     updateScoreboard();
     gameActive = false;
   } else if (boardState.every((cell) => cell !== null)) {
@@ -68,7 +68,6 @@ function updateScoreboard() {
   const scoreboard = document.querySelector(".scoreboard");
   scoreboard.textContent = `Счёт: X - ${scores.X}, O - ${scores.O}`;
 }
-
 
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
 restartButton.addEventListener("click", restartGame);
