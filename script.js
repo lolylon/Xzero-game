@@ -8,6 +8,7 @@ let gameActive = true;
 const boardState = Array(9).fill(null);
 
 let scores = { X: 0, O: 0 };
+let playingWith = "friend"; 
 
 const winningCombinations = [
   [0, 1, 2],
@@ -20,16 +21,27 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
-function handleCellClick(e) {
-  const index = e.target.dataset.index;
+function startGame(mode) {
+  playingWith = mode; 
+  restartGame(); 
+}
 
-  if (!gameActive || boardState[index] !== null) {
-    return;
-  }
+function computerMove() {
+  const emptyCells = boardState
+    .map((cell, index) => (cell === null ? index : null))
+    .filter(index => index !== null);
+
+  if (emptyCells.length === 0) return;
+
+  const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+  makeMove(randomIndex);
+}
+
+function makeMove(index) {
+  if (boardState[index] !== null || !gameActive) return;
 
   boardState[index] = currentPlayer;
-  e.target.textContent = currentPlayer;
-  e.target.classList.add("taken");
+  document.querySelectorAll(".cell")[index].textContent = currentPlayer;
 
   if (checkWin()) {
     scores[currentPlayer]++;
@@ -37,25 +49,33 @@ function handleCellClick(e) {
     message.textContent = `Игрок ${currentPlayer} победил!`;
     updateScoreboard();
     gameActive = false;
-  } else if (boardState.every((cell) => cell !== null)) {
+    return;
+  }
+
+  if (boardState.every(cell => cell !== null)) {
     alert("Ничья!");
     message.textContent = "Ничья!";
     gameActive = false;
-  } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    message.textContent = `Ход игрока ${currentPlayer}`;
+    return;
+  }
+
+  currentPlayer = currentPlayer === "X" ? "O" : "X";
+  message.textContent = `Ход игрока ${currentPlayer}`;
+
+  if (playingWith === "computer" && currentPlayer === "O") {
+    setTimeout(computerMove, 500); 
   }
 }
 
 function checkWin() {
-  return winningCombinations.some((combination) =>
-    combination.every((index) => boardState[index] === currentPlayer)
+  return winningCombinations.some(combination =>
+    combination.every(index => boardState[index] === currentPlayer)
   );
 }
 
 function restartGame() {
   boardState.fill(null);
-  cells.forEach((cell) => {
+  cells.forEach(cell => {
     cell.textContent = "";
     cell.classList.remove("taken");
   });
@@ -69,6 +89,18 @@ function updateScoreboard() {
   scoreboard.textContent = `Счёт: X - ${scores.X}, O - ${scores.O}`;
 }
 
-cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
+const menuButtons = document.getElementById("menu").querySelectorAll("button");
+menuButtons.forEach(button => {
+  button.addEventListener("click", event => {
+    const mode = event.target.getAttribute("onclick").match(/'(.*?)'/)[1];
+    startGame(mode);
+  });
+});
+
+cells.forEach(cell => cell.addEventListener("click", event => {
+  const index = event.target.dataset.index;
+  makeMove(Number(index));
+}));
+
 restartButton.addEventListener("click", restartGame);
 message.textContent = "Ход игрока X";

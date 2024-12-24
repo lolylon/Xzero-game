@@ -1,50 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Крестики-нолики</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Крестики-нолики</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
 
-<body>
-    <header class="header">
-        <h1 class="title">Крестики-нолики</h1>
-    </header>
+    <body>
+        <header class="header">
+            <h1 class="title">Крестики-нолики</h1>
+        </header>
 
-    <section class="about">
-        <h2>О игре</h2>
-        <p>
-            Крестики-нолики — это классическая игра для двух игроков. Цель игры —
-            разместить три своих символа (X или O) подряд, по горизонтали, вертикали
-            или диагонали.
-        </p>
-    </section>
+        <section class="about">
+            <h2>О игре</h2>
+            <p>
+                Крестики-нолики — это классическая игра для двух игроков. Цель игры —
+                разместить три своих символа (X или O) подряд, по горизонтали, вертикали
+                или диагонали.
+            </p>
+        </section>
 
-    <div class="game-container">
-        <div class="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
+        <div id="menu">
+            <button onclick="startGame('friend')">Play with Friend</button>
+            <button onclick="startGame('computer')">Play with Computer</button>
         </div>
-        <p class="message"></p>
-        <div class="scoreboard">Счёт: X - 0, O - 0</div>
-        <button id="restart">Начать заново</button>
-        
-    </div>
 
-    <footer class="footer">
-        <p>Белов Антон Александрович и Семиятов Дархан</p>
-    </footer>
+        <div class="game-container">
+            <div class="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            <p class="message"></p>
+            <div class="scoreboard">Счёт: X - 0, O - 0</div>
+            <button id="restart">Начать заново</button>
+            
+        </div>
 
-    <script src="script.js"></script>
-</body>
+        <footer class="footer">
+            <p>Белов Антон Александрович и Семиятов Дархан</p>
+        </footer>
 
-</html>
+        <script src="script.js"></script>
+    </body>
+
+    </html>
